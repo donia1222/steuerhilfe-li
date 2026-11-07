@@ -68,3 +68,18 @@
 
   $('#year').textContent = new Date().getFullYear();
 })();
+
+// 07/11/2026 · Hinweis «Liechtenstein in Vorbereitung»: einmal pro Besuch.
+(() => {
+  const m = document.getElementById('soon');
+  if (!m) return;
+  let seen = false;
+  try { seen = sessionStorage.getItem('sh-li-soon') === '1'; } catch (e) {}
+  if (seen) return;
+  const close = () => { m.hidden = true; document.body.style.overflow = ''; try { sessionStorage.setItem('sh-li-soon', '1'); } catch (e) {} };
+  m.hidden = false; document.body.style.overflow = 'hidden';
+  m.querySelector('[data-soon-close]').focus();
+  m.querySelector('[data-soon-close]').addEventListener('click', close);
+  m.addEventListener('click', (e) => { if (e.target === m) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !m.hidden) close(); });
+})();

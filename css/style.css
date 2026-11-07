@@ -484,3 +484,16 @@ details p { padding-bottom: 20px; color: var(--ink-2); }
   .mob__chips, .mob__note { justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) { .mob__dot { animation: none; } }
+
+/* 07/11/2026 · Liechtenstein in Vorbereitung: Hinweis beim Öffnen und Download-Notiz */
+.badge--soon { background: rgba(206, 17, 38, .1); color: #a50e1f; }
+.dl .dl__note { display: flex; gap: 10px; align-items: flex-start; margin: 14px 0 16px; padding: 12px 14px; border-radius: 14px; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .16); color: #fff; font-size: 15px; }
+.dl .dl__note .ic { margin-top: 2px; }
+.soon { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; background: rgba(11, 23, 52, .55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.soon[hidden] { display: none; }
+.soon__box { width: min(480px, 100%); max-height: calc(100vh - 32px); overflow: auto; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--sh-lg); padding: 28px; display: grid; gap: 14px; justify-items: start; }
+.soon__box h2 { font-size: clamp(22px, 5vw, 26px); }
+.soon__box p { color: var(--ink-2); }
+.soon__btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.soon__mail { font-size: 14px; color: var(--muted) !important; }
+@media (max-width: 480px) { .soon__box { padding: 22px; } .soon__btns .btn { width: 100%; } }
