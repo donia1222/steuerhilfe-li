@@ -68,9 +68,20 @@ p { margin: 0; }
 .nav { display: flex; gap: 4px; margin-left: auto; }
 .nav a { padding: 8px 12px; border-radius: 10px; color: var(--ink-2); text-decoration: none; font-weight: 500; font-size: 15px; }
 .nav a:hover { background: rgba(15, 26, 51, .05); color: var(--ink); }
-.burger { display: none; width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); place-items: center; gap: 4px; padding: 0; cursor: pointer; margin-left: auto; }
-.burger span { display: block; width: 18px; height: 2px; background: var(--ink); border-radius: 2px; margin: 2px auto; }
-.mnav { display: grid; gap: 2px; padding: 8px 24px 20px; border-top: 1px solid var(--line); background: var(--bg); }
+.burger { display: none; position: relative; width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); padding: 0; cursor: pointer; margin-left: auto; transition: border-color .2s, box-shadow .2s; }
+.burger:hover { border-color: #c9d3cd; }
+/* drei Striche, der mittlere kürzer; offen werden sie zum X */
+.burger span { position: absolute; top: 50%; left: 50%; width: 18px; height: 2px; margin: -1px 0 0 -9px; background: var(--ink); border-radius: 2px; transition: transform .32s var(--ease), opacity .2s, width .32s var(--ease); }
+.burger span:nth-child(1) { transform: translateY(-6px); }
+.burger span:nth-child(2) { width: 12px; }
+.burger span:nth-child(3) { transform: translateY(6px); }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; width: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: rotate(-45deg); }
+/* Menü schwebt unter der Kopfzeile und blendet weich ein und aus */
+.mnav { position: absolute; left: 0; right: 0; top: 100%; display: grid; gap: 2px; padding: 8px 24px 20px; border-top: 1px solid var(--line); background: var(--bg); box-shadow: 0 18px 30px -18px rgba(15, 26, 51, .25); max-height: calc(100vh - 80px); overflow: auto;
+  opacity: 0; transform: translateY(-8px); transition: opacity .25s var(--ease), transform .3s var(--ease); }
+.mnav.is-open { opacity: 1; transform: none; }
 .mnav[hidden] { display: none; }
 .mnav a:not(.btn) { padding: 13px 4px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); font-weight: 600; }
 .mnav .btn { margin-top: 12px; }
@@ -254,6 +265,7 @@ details p { padding-bottom: 20px; color: var(--ink-2); }
 .js .reveal.is-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .mnav, .burger span { transition: none; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
 }
 
